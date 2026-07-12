@@ -54,6 +54,8 @@ function drawTopChart(riders){
         options:{
 
             responsive:true,
+            
+            maintainAspectRatio: false,
 
             indexAxis:'y',
 
@@ -105,6 +107,8 @@ function drawRatioChart(riders){
         options:{
 
             responsive:true,
+            
+            maintainAspectRatio: false,
 
             indexAxis:'y',
 
