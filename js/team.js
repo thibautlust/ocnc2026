@@ -4,10 +4,7 @@
 
 async function loadTeam() {
 
-    
-    const riders = await loadCSV("riders.csv");
-
-    const team = riders.filter(r => Number(r.selected) === 1);
+    const team = await loadCSV("bestTeam.csv");
 
     if (team.length === 0)
         return;

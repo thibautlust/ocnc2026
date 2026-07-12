@@ -1,7 +1,6 @@
 async function loadRiders() {
 
-    
-    const riders = await loadCSV("riders.csv");
+    let riders = await loadCSV("points_par_etape.csv");
 
     if (riders.length === 0) return;
 
@@ -86,4 +85,4 @@ async function loadRiders() {
 
 }
 
-window.addEventListener("load", loadRiders);
+window.addEventListener("load", loadRiders);	
