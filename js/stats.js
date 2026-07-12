@@ -4,11 +4,8 @@
 
 async function loadStats() {
 
-   
-    
-    const riders = await loadCSV("riders.csv");
-
-    const team = riders.filter(r => Number(r.selected) === 1);
+    const riders = await loadCSV("points_par_etape.csv");
+    const team   = await loadCSV("bestTeam.csv");
 
     if (riders.length === 0)
         return;
@@ -31,7 +28,7 @@ function drawTopChart(riders){
 
     riders.sort((a,b)=>Number(b.points)-Number(a.points));
 
-    const top = riders.slice(0,50);
+    const top = riders.slice(0,10);
 
     new Chart(document.getElementById("topPointsChart"),{
 
@@ -45,10 +42,7 @@ function drawTopChart(riders){
 
                 label:"Points",
 
-                data:top.map(r=>Number(r.points)),
-
-                categoryPercentage: 1.0,
-                barPercentage: 0.95
+                data:top.map(r=>Number(r.points))
 
             }]
 
@@ -87,7 +81,7 @@ function drawRatioChart(riders){
 
     riders.sort((a,b)=>b.ratio-a.ratio);
 
-    const top=riders.slice(0,50);
+    const top=riders.slice(0,10);
 
     new Chart(document.getElementById("ratioChart"),{
 
@@ -96,15 +90,12 @@ function drawRatioChart(riders){
         data:{
 
             labels:top.map(r=>r.Rider),
-            
+
             datasets:[{
 
                 label:"Points / Prix",
 
-                data:top.map(r=>r.ratio.toFixed(2)),
-
-                categoryPercentage: 1.0,
-                barPercentage: 0.95
+                data:top.map(r=>r.ratio.toFixed(2))
 
             }]
 
@@ -166,3 +157,67 @@ function drawTeamPie(team){
 
 
 
+// =======================================================
+// Evolution du score de l'équipe
+// =======================================================
+
+function drawHistory(team){
+
+    let labels=[];
+    let values=[];
+
+    let cumul=0;
+
+    let stage=1;
+
+    while(("E"+stage) in team[0]){
+
+        labels.push("Etape "+stage);
+
+        let pts=0;
+
+        team.forEach(r=>{
+
+            pts += Number(r["E"+stage]);
+
+        });
+
+        cumul += pts;
+
+        values.push(cumul);
+
+        stage++;
+
+    }
+
+    new Chart(document.getElementById("historyChart"),{
+
+        type:"line",
+
+        data:{
+
+            labels:labels,
+
+            datasets:[{
+
+                label:"Score cumulé",
+
+                data:values,
+
+                fill:false,
+
+                tension:0.25
+
+            }]
+
+        },
+
+        options:{
+
+            responsive:true
+
+        }
+
+    });
+
+}
