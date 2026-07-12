@@ -182,10 +182,8 @@ tbody td{
    CHARTS
 =========================== */
 
-canvas{
-
-    max-height:400px;
-
+canvas {
+    width: 100%;
 }
 
 
@@ -382,4 +380,14 @@ transform:translateY(0);
 
 }
 
+}
+
+.chart50{
+    position:relative;
+    height:2200px;
+}
+
+.chart50 canvas{
+    height:2200px !important;
+    max-height:none !important;
 }
