@@ -35,11 +35,25 @@ function drawTopChart(riders){
 
             labels:top.map(r=>r.Rider),
 
-            datasets:[{
+            datasets: [{
 
-                label:"Points",
+                label: "Points",
 
-                data:top.map(r=>Number(r.points))
+                data: top.map(r => Number(r.points)),
+
+                backgroundColor: top.map(r =>
+                    Number(r.selected) === 1
+                    ? "#dc3545"      // Rouge : équipe optimale
+                    : "#0d6efd"      // Bleu : autres coureurs
+                ),
+
+                borderColor: top.map(r =>
+                    Number(r.selected) === 1
+                    ? "#b02a37"
+                    : "#0a58ca"
+                ),
+
+                borderWidth: 1
 
             }]
 
@@ -88,11 +102,25 @@ function drawRatioChart(riders){
 
             labels:top.map(r=>r.Rider),
 
-            datasets:[{
+            datasets: [{
 
-                label:"Points / Prix",
+                label: "Points / Prix",
 
-                data:top.map(r=>r.ratio.toFixed(2))
+                data: top.map(r => r.ratio.toFixed(2)),
+
+                backgroundColor: top.map(r =>
+                    Number(r.selected) === 1
+                    ? "#dc3545"
+                    : "#0d6efd"
+                ),
+
+                borderColor: top.map(r =>
+                    Number(r.selected) === 1
+                    ? "#b02a37"
+                    : "#0a58ca"
+                ),
+
+                borderWidth: 1
 
             }]
 
